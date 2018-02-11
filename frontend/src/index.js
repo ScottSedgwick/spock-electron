@@ -43,7 +43,7 @@ const createWindow = () => {
 };
 
 function createBackendServer () {
-  backendServer = child_process.spawn(`${__dirname}/../resources/spock-exe`)
+  backendServer = child_process.spawn(`${__dirname}/../resources/backend`)
 }
 
 // This method will be called when Electron has finished

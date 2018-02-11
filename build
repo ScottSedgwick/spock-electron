@@ -1,0 +1,26 @@
+#!/usr/bin/env stack
+-- stack --resolver lts-10.4 script --package shake --package unix --package directory
+
+import Development.Shake (CmdOption(..), ShakeOptions(..), cmd_, command_, need, phony, shakeArgs, shakeOptions, want)
+
+-- Define a sandbox directory for build byproducts to go in
+buildPath :: String
+buildPath = "_build"
+
+options :: ShakeOptions
+options = shakeOptions{shakeFiles=buildPath}
+
+main :: IO ()
+main = shakeArgs options $ do
+    want ["package"]
+
+    phony "clean" $ do
+        command_ [Cwd "backend"] "stack" ["clean"]
+        cmd_ "rm -rf frontend/resources/static"
+        cmd_ "rm -f  frontend/resources/backend"
+
+    phony "package" $ do
+        need ["clean"]
+        command_ [Cwd "backend"] "stack" ["build", "--copy-bins"]
+        cmd_ "cp -R backend/static frontend/resources/static"
+        command_ [Cwd "frontend"] "electron-forge" ["package"]

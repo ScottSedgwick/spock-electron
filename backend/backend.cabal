@@ -26,3 +26,5 @@ executable          backend
                   , blaze-html
                   , blaze-markup
                   , wai-middleware-static
+                  , filepath
+                  , directory

@@ -31,24 +31,15 @@ main = shakeArgs options $ do
 
     phony "build" $ cmd_ "stack build -j 8 --fast"
 
+    phony "deploy" $ cmd_ "stack build -j 8 --fast --copy-bins"
+
     phony "clean" $ do
-        cmd_ "stack clean"
-        cmd_ "rm -rf ../frontend/resources/static"
-        cmd_ "rm -f ../frontend/resources/backend"
-
-    phony "static" $ do
-        need ["clean"]
-        cmd_ "cp -R static ../frontend/resources/static"
-
-    phony "deploy" $ do
-        need ["clean", "static"]
-        cmd_ "stack build --copy-bins"
-        
+        cmd_ "stack clean"        
 
     phony "watch" $ do
         liftIO $ whenM (doesFileExist killrunFile) (removeFile killrunFile)
         need ["setMode"]
-        cmd_ $ "stack build --file-watch --exec ./" ++ killrunFile
+        cmd_ $ "stack build -j 8 --fast --file-watch --exec ./" ++ killrunFile
 
     phony "setMode" $ do
         need [killrunFile]

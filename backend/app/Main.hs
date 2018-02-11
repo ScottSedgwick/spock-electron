@@ -10,6 +10,8 @@ import Data.Text (Text, pack, unpack)
 import Network.Wai.Middleware.Static (addBase, staticPolicy)
 
 import Prelude hiding (head, id, div, span)
+import System.Directory (doesDirectoryExist)
+import System.FilePath.Posix ((</>))
 
 import Text.Blaze (AttributeValue, customAttribute, dataAttribute)
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
@@ -32,9 +34,17 @@ main = do
     spockCfg <- defaultSpockCfg EmptySession PCNoDatabase (DummyAppState ref)
     runSpock 8080 (spock spockCfg app)
 
+resources :: [String]
+resources = ["resources" </> "static", "static"]
+
+findM :: Monad m => a -> (a -> m Bool) -> [a] -> m a
+findM def _ [] = pure def
+findM def f (x:xs) = f x >>= \b -> if b then pure x else findM def f xs
+
 app :: SpockM () MySession MyAppState ()
 app = do
-    middleware (staticPolicy (addBase "static")) 
+    rdir <- liftIO $ findM "static" doesDirectoryExist resources
+    middleware (staticPolicy (addBase rdir))
     get root               hdnRoot
     get ("hello" <//> var) hndHello
     get ("num" <//> var)   hndNum
