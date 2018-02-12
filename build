@@ -22,5 +22,4 @@ main = shakeArgs options $ do
     phony "package" $ do
         need ["clean"]
         command_ [Cwd "backend"] "stack" ["build", "--copy-bins"]
-        cmd_ "cp -R backend/static frontend/resources/static"
         command_ [Cwd "frontend"] "electron-forge" ["package"]

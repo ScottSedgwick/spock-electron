@@ -9,10 +9,10 @@ where
 import Text.Blaze (Attribute, AttributeValue, customAttribute)
 
 integrity :: AttributeValue -> Attribute
-integrity sha = customAttribute "integrity" sha 
+integrity = customAttribute "integrity" 
 
 crossorigin :: Attribute
 crossorigin = customAttribute "crossorigin" "anonymous"
 
 role :: AttributeValue -> Attribute
-role value = customAttribute "role" value 
+role = customAttribute "role" 

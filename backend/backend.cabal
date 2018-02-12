@@ -17,14 +17,23 @@ executable          backend
   hs-source-dirs:   app
   main-is:          Main.hs
   other-modules:    Html.Attributes
+                  , Static.EmbeddedResources
+                  , Static.Resources
   default-language: Haskell2010
   ghc-options:      -Wall
   build-depends:    base >= 4.7 && < 5
-                  , Spock >= 0.11
-                  , mtl
-                  , text
+                  , base64-bytestring
                   , blaze-html
                   , blaze-markup
-                  , wai-middleware-static
-                  , filepath
+                  , bytestring
+                  , cryptohash
                   , directory
+                  , filepath
+                  , mtl
+                  , neat-interpolation
+                  , Spock >= 0.11
+                  , text
+                  , wai
+                  , wai-app-static
+                  , wai-middleware-static
+                  , warp
