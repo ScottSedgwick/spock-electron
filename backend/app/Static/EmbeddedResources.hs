@@ -1,4 +1,4 @@
-{-# LANGUAGE TemplateHaskell, QuasiQuotes, OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Static.EmbeddedResources (mkEmbedded) where
 
 import WaiAppStatic.Storage.Embedded

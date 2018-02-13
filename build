@@ -19,6 +19,13 @@ main = shakeArgs options $ do
         cmd_ "rm -rf frontend/resources/static"
         cmd_ "rm -f  frontend/resources/backend"
 
+    phony "list" $ do
+        mapM_ putNormal [ "Usage: ./build <target>"
+                        , "Targets:"
+                        , "  clean     Delete all build byproducts"
+                        , "  package   Build backend and frontend, and generate executable using electron-forge"
+                        ]
+
     phony "package" $ do
         need ["clean"]
         command_ [Cwd "backend"] "stack" ["build", "--copy-bins"]

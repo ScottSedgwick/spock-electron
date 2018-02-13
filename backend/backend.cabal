@@ -26,7 +26,7 @@ executable          backend
                   , Static.Middleware
                   , Static.Resources
   default-language: Haskell2010
-  ghc-options:      -Wall
+  ghc-options:      -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
   build-depends:    base >= 4.7 && < 5
                   , base64-bytestring
                   , blaze-html
@@ -36,10 +36,8 @@ executable          backend
                   , directory
                   , filepath
                   , mtl
-                  , neat-interpolation
                   , Spock >= 0.11
                   , text
                   , wai
                   , wai-app-static
-                  , wai-middleware-static
                   , warp
