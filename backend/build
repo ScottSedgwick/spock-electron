@@ -1,8 +1,8 @@
 #!/usr/bin/env stack
 -- stack --resolver lts-10.4 script --package shake --package unix --package directory
 
-import Control.Monad (when)
-import Development.Shake (ShakeOptions(..), (%>), cmd_, liftIO, need, phony, shakeArgs, shakeOptions, want)
+import Control.Monad (mapM_, when)
+import Development.Shake (ShakeOptions(..), (%>), cmd_, liftIO, need, phony, putNormal, shakeArgs, shakeOptions, want)
 import System.Directory (doesFileExist, removeFile)
 import System.Posix.Files (ownerModes, setFileMode)
 
@@ -29,20 +29,38 @@ main :: IO ()
 main = shakeArgs options $ do
     want ["watch"]
 
-    phony "build" $ cmd_ "stack build -j 8 --fast"
+    phony "build"     $ cmd_ "stack build -j 8 --fast --haddock-deps"
 
-    phony "deploy" $ cmd_ "stack build -j 8 --fast --copy-bins"
+    phony "clean"     $ cmd_ "stack clean" 
 
-    phony "clean" $ do
-        cmd_ "stack clean"        
+    phony "deploy"    $ cmd_ "stack build -j 8 --fast --copy-bins"       
 
-    phony "watch" $ do
-        liftIO $ whenM (doesFileExist killrunFile) (removeFile killrunFile)
-        need ["setMode"]
-        cmd_ $ "stack build -j 8 --fast --file-watch --exec ./" ++ killrunFile
+    phony "genhoogle" $ cmd_ "stack hoogle -- generate --local"
+
+    phony "haddock"   $ cmd_ "stack haddock --open"
+
+    phony "hoogle"    $ cmd_ "stack hoogle -- server --local --port=8081"
+
+    phony "list" $ do
+        mapM_ putNormal [ "Usage: ./build <target>"
+                        , "Targets:"
+                        , "  build        Compile the backen project"
+                        , "  clean        Delete all build byproducts"
+                        , "  deploy       Build and copy output to Electron project"
+                        , "  genhoogle    Generate Hoogle documentation for project"
+                        , "  haddock      Launch Haddock page for project dependencies"
+                        , "  hoogle       Launch local Hoogle server"
+                        , "  list         List these targets"
+                        , "  watch        Build-Launch-Rebuild loop"
+                        ]
 
     phony "setMode" $ do
         need [killrunFile]
         liftIO $ setFileMode killrunFile ownerModes
+
+    phony "watch" $ do
+        liftIO $ whenM (doesFileExist killrunFile) (removeFile killrunFile)
+        need ["setMode"]
+        cmd_ $ "stack build -j 8 --fast --haddock-deps --file-watch --exec ./" ++ killrunFile
 
     killrunFile %> \out -> liftIO $ writeFile out killrunStr
