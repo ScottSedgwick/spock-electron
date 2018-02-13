@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings, TemplateHaskell #-}
+{-# LANGUAGE TemplateHaskell #-}
 module Static.Middleware (staticResourceMiddleware) where
 
 import Static.EmbeddedResources (mkEmbedded)

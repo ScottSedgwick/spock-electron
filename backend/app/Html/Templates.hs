@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Html.Templates where
 
 import Html.Attributes

@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Static.EmbeddedResources (mkEmbedded) where
 
 import WaiAppStatic.Storage.Embedded

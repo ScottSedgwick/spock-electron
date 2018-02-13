@@ -2,7 +2,7 @@ name:               backend
 version:            0.1.0.0
 -- synopsis:
 -- description:
-homepage:           https://github.com/ScottSedgwick/backend#readme
+homepage:           https://github.com/ScottSedgwick/spock-electron
 license:            BSD3
 license-file:       LICENSE
 author:             Scott Sedgwick
@@ -13,31 +13,32 @@ build-type:         Simple
 extra-source-files: README.md
 cabal-version:      >=1.10
 
-executable          backend
-  hs-source-dirs:   app
-  main-is:          Main.hs
-  other-modules:    Html.Attributes
-                  , Html.Handler.Hello
-                  , Html.Handler.Number
-                  , Html.Handler.Root
-                  , Html.Templates
-                  , Html.Types
-                  , Static.EmbeddedResources
-                  , Static.Middleware
-                  , Static.Resources
-  default-language: Haskell2010
-  ghc-options:      -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
-  build-depends:    base >= 4.7 && < 5
-                  , base64-bytestring
-                  , blaze-html
-                  , blaze-markup
-                  , bytestring
-                  , cryptohash
-                  , directory
-                  , filepath
-                  , mtl
-                  , Spock >= 0.11
-                  , text
-                  , wai
-                  , wai-app-static
-                  , warp
+executable            backend
+  hs-source-dirs:     app
+  main-is:            Main.hs
+  other-modules:      Html.Attributes
+                    , Html.Handler.Hello
+                    , Html.Handler.Number
+                    , Html.Handler.Root
+                    , Html.Templates
+                    , Html.Types
+                    , Static.EmbeddedResources
+                    , Static.Middleware
+                    , Static.Resources
+  default-language:   Haskell2010
+  default-extensions: OverloadedStrings
+  ghc-options:        -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  build-depends:      base >= 4.7 && < 5
+                    , base64-bytestring
+                    , blaze-html
+                    , blaze-markup
+                    , bytestring
+                    , cryptohash
+                    , directory
+                    , filepath
+                    , mtl
+                    , Spock >= 0.11
+                    , text
+                    , wai
+                    , wai-app-static
+                    , warp

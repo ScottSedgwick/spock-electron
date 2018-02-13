@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Html.Handler.Number where
 
 import Html.Templates

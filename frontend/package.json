@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Scott",
-  "license": "MIT",
+  "license": "BSD3",
   "config": {
     "forge": {
       "make_targets": {

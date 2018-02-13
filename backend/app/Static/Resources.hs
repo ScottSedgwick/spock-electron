@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Static.Resources (ResourceInfo, cssResources, jsResources, resourceItems) where
 
 import qualified Data.ByteString as B

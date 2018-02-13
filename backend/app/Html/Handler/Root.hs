@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Html.Handler.Root where
 
 import Html.Attributes
