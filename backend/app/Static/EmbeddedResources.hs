@@ -16,7 +16,7 @@ mkEntry :: ResourceInfo -> IO EmbeddableEntry
 mkEntry (locn, mimetype, filepath) = do
     filedata <- BL.readFile filepath
     pure EmbeddableEntry {
-              eLocation = locn
+                eLocation = locn
             , eMimeType = mimetype
             , eContent = Left (hash filedata, filedata)
             }

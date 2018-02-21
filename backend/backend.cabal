@@ -1,33 +1,34 @@
-name:               backend
-version:            0.1.0.0
+name:                backend
+version:             0.1.0.0
 -- synopsis:
 -- description:
-homepage:           https://github.com/ScottSedgwick/spock-electron
-license:            BSD3
-license-file:       LICENSE
-author:             Scott Sedgwick
-maintainer:         ssedgwick@cochlear.com
-copyright:          Copyright 1996 Cochlear Ltd
-category:           General
-build-type:         Simple
-extra-source-files: README.md
-cabal-version:      >=1.10
+homepage:            
+license:             BSD3
+license-file:        LICENSE
+author:              Scott Sedgwick
+maintainer:          ssedgwick@cochlear.com
+copyright:           Copyright 1996 Cochlear Ltd
+category:            General
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
 
-executable            backend
+executable backend
   hs-source-dirs:     app
   main-is:            Main.hs
-  other-modules:      Html.Attributes
-                    , Html.Handler.Hello
-                    , Html.Handler.Number
-                    , Html.Handler.Root
-                    , Html.Templates
-                    , Html.Types
+  other-modules:      Html.Templates
                     , Static.EmbeddedResources
                     , Static.Middleware
                     , Static.Resources
   default-language:   Haskell2010
-  default-extensions: OverloadedStrings
   ghc-options:        -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+  default-extensions: FlexibleContexts
+                    , FlexibleInstances
+                    , GADTs
+                    , GeneralizedNewtypeDeriving
+                    , MultiParamTypeClasses
+                    , OverloadedStrings
+                    , TypeFamilies
   build-depends:      base >= 4.7 && < 5
                     , base64-bytestring
                     , blaze-html
@@ -35,10 +36,14 @@ executable            backend
                     , bytestring
                     , cryptohash
                     , directory
-                    , filepath
+                    , monad-logger
                     , mtl
+                    , persistent
+                    , persistent-sqlite
+                    , persistent-template
+                    , resourcet
                     , Spock >= 0.11
                     , text
                     , wai
                     , wai-app-static
-                    , warp
+                    , warp         
